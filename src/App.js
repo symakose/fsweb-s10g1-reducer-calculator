@@ -1,9 +1,25 @@
-import React from 'react';
+import React from "react";
+import { useReducer } from "react";
 
-import TotalDisplay from './components/TotalDisplay';
-import CalcButton from './components/CalcButton';
+import TotalDisplay from "./components/TotalDisplay";
+import CalcButton from "./components/CalcButton";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
+
+const initialState = {
+  total: 0,
+  operation: "X",
+  memory: 0,
+};
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
     <div className="App">
       <nav className="navbar navbar-dark bg-dark">
@@ -13,11 +29,16 @@ function App() {
       <div className="container row mt-5">
         <div className="col-md-12 d-flex justify-content-center">
           <form name="Cal">
-
             <TotalDisplay value={0} />
             <div className="row details">
-              <span id="operation"><b>Operation:</b> X</span>
-              <span id="memory"><b>Memory:</b> 0</span>
+              <span id="operation">
+                <b>Operation:</b>
+                {state.operation}
+              </span>
+              <span id="memory">
+                <b>Memory:</b>
+                {state.memory}
+              </span>
             </div>
 
             <div className="row">
@@ -53,7 +74,6 @@ function App() {
             <div className="row ce_button">
               <CalcButton value={"CE"} />
             </div>
-
           </form>
         </div>
       </div>
