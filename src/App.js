@@ -17,6 +17,13 @@ const initialState = {
   memory: 0,
 };
 
+const actions = {
+  add: "ADD_ONE",
+  applyNumber: "APPLY_NUMBER",
+  change: "CHANGE_OPRATION",
+  clearDisplay: "CLEAR_DISPLAY",
+};
+
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -29,7 +36,7 @@ function App() {
       <div className="container row mt-5">
         <div className="col-md-12 d-flex justify-content-center">
           <form name="Cal">
-            <TotalDisplay value={0} />
+            <TotalDisplay value={state.total} />
             <div className="row details">
               <span id="operation">
                 <b>Operation:</b>
@@ -42,9 +49,22 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"M+"} />
-              <CalcButton value={"MR"} />
-              <CalcButton value={"MC"} />
+              <CalcButton
+                value={"M+"}
+                onClick={() => dispatch({ type: "ADD_ONE" })}
+              />
+              <CalcButton
+                value={"MR"}
+                onClick={() =>
+                  dispatch({ type: "APPLY_NUMBER", payload: state.memory })
+                }
+              />
+              <CalcButton
+                value={"MC"}
+                onClick={() =>
+                  dispatch({ type: "CHANGE_OPERATION", payload: 0 })
+                }
+              />
             </div>
 
             <div className="row">
@@ -66,13 +86,31 @@ function App() {
             </div>
 
             <div className="row">
-              <CalcButton value={"+"} />
-              <CalcButton value={"*"} />
-              <CalcButton value={"-"} />
+              <CalcButton
+                value={"+"}
+                onClick={() =>
+                  dispatch({ type: "CHANGE_OPERATION", payload: "+" })
+                }
+              />
+              <CalcButton
+                value={"*"}
+                onClick={() =>
+                  dispatch({ type: "CHANGE_OPERATION", payload: "*" })
+                }
+              />
+              <CalcButton
+                value={"-"}
+                onClick={() =>
+                  dispatch({ type: "CHANGE_OPERATION", payload: "-" })
+                }
+              />
             </div>
 
             <div className="row ce_button">
-              <CalcButton value={"CE"} />
+              <CalcButton
+                value={"CE"}
+                onClick={() => dispatch({ type: "CLEAR_DISPLAY" })}
+              />
             </div>
           </form>
         </div>
